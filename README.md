@@ -8,3 +8,4 @@ Projeto de teste da API petstore do [swagger](https://github.com/swagger-api/swa
 * Rest Assured
 * Junit 4
 * Cucumber
+* Lombok
