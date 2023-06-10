@@ -2,7 +2,7 @@ package bdd.automation.api.steps;
 
 import bdd.automation.api.support.api.UserApi;
 import bdd.automation.api.support.domain.User;
-import io.cucumber.java.pt.Então;
+import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,7 +24,7 @@ public class UserStepDefinitions {
         userApi.createUser(expectedUser);
     }
 
-    @Então("o usuário é salvo no sistema")
+    @Entao("o usuário é salvo no sistema")
     public void theCreatedUserWasStored() {
         String actualUsername = userApi.getUsername(expectedUser);
 

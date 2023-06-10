@@ -5,17 +5,17 @@ import bdd.automation.api.support.api.StoreApi;
 import bdd.automation.api.support.domain.Order;
 import bdd.automation.api.support.domain.Pet;
 import io.cucumber.java.pt.Dado;
-import io.cucumber.java.pt.Então;
+import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import io.restassured.response.Response;
 
 import static org.hamcrest.CoreMatchers.is;
 
 public class StoreStepDefinitions {
-    PetApi petApi;
-    StoreApi storeApi;
-    Pet expectedPet;
-    Order expectedOrder;
+    private final PetApi petApi;
+    private final StoreApi storeApi;
+    private Pet expectedPet;
+    private Order expectedOrder;
 
     public StoreStepDefinitions() {
         petApi = new PetApi();
@@ -30,13 +30,13 @@ public class StoreStepDefinitions {
     }
 
     @Quando("o usuário faz um pedido deste animal")
-    public void oUsuárioFazUmPedidoDesteAnimal() {
+    public void oUsuarioFazUmPedidoDesteAnimal() {
         Order order = Order.builder().petId(expectedPet.getId()).build();
 
         expectedOrder = storeApi.createOrder(order);
     }
 
-    @Então("o pedido deve ser aprovado")
+    @Entao("o pedido deve ser aprovado")
     public void oPedidoDeveSerAprovado() {
         Response actualOrderResponse = storeApi.getOrder(expectedOrder.getId());
 

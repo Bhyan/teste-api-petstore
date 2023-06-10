@@ -16,7 +16,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Pet {
     @Builder.Default
-    private int id = 2;
+    private int id = 20;
     @Builder.Default
     private String name = "Panthro";
     @Builder.Default
@@ -34,6 +34,6 @@ public class Pet {
         @Builder.Default
         private int id = 2;
         @Builder.Default
-        private String name = "Cats";
+        private String name = "Cat";
     }
 }
