@@ -9,13 +9,17 @@ import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import io.restassured.response.Response;
 
+import java.util.Map;
+
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StoreStepDefinitions {
     private final PetApi petApi;
     private final StoreApi storeApi;
     private Pet expectedPet;
     private Order expectedOrder;
+    private Map<String, Integer> expectedInventory;
 
     public StoreStepDefinitions() {
         petApi = new PetApi();
@@ -46,6 +50,18 @@ public class StoreStepDefinitions {
                         "petId", is(expectedPet.getId()),
                         "quantity", is(expectedOrder.getQuantity()),
                         "status", is(expectedOrder.getStatus())
-                        );
+                );
+    }
+
+    @Quando("o usuário puxa os status dos serviços")
+    public void oUsuarioPuxaOsStatusDosServicos() {
+        expectedInventory = storeApi.getInventory();
+
+        //map.get("approved")
+    }
+
+    @Entao("deve existir {int} de cada {word}")
+    public void deveExistirQuantidadeDeCadaStatus(int quantity, String status) {
+        assertThat(expectedInventory.get(status), is(quantity));
     }
 }

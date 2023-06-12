@@ -1,7 +1,9 @@
 package bdd.automation.api.steps;
 
 import bdd.automation.api.support.api.PetApi;
+import bdd.automation.api.support.api.StoreApi;
 import bdd.automation.api.support.api.UserApi;
+import bdd.automation.api.support.domain.Order;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.restassured.RestAssured;
@@ -13,10 +15,12 @@ public class Config {
 
     private final UserApi userApi;
     private final PetApi petApi;
+    private final StoreApi storeApi;
 
     public Config() {
         userApi = new UserApi();
         petApi = new PetApi();
+        storeApi = new StoreApi();
     }
 
     @Before
@@ -39,5 +43,10 @@ public class Config {
     @After("@DeleteExtraPets")
     public void deleteExtraPets() {
         petApi.deleteExtraPets("available");
+    }
+
+    @After("@DeleteExtraOrders")
+    public void deleteExtraOrders() {
+        storeApi.deleteOrder(Order.builder().build().getId());
     }
 }
