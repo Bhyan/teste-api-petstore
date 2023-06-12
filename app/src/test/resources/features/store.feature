@@ -8,6 +8,11 @@ Funcionalidade: Gerenciamento de pedidos
     Quando o usuário faz um pedido deste animal
     Então o pedido deve ser aprovado
 
+  Cenario: Deletar um pedido
+    Dado que exista um pedido cadastrado no sistema
+    Quando o usuário deletar um pedido
+    Entao o pedido não deve esta disponível no sistema
+
   Esquema do Cenario: Validar inventário da loja
     Quando o usuário puxa os status dos serviços
     Então deve existir <quantidade> de cada <status>

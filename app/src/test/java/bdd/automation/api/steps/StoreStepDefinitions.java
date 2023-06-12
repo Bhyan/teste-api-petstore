@@ -8,6 +8,7 @@ import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 
 import java.util.Map;
 
@@ -56,12 +57,30 @@ public class StoreStepDefinitions {
     @Quando("o usuário puxa os status dos serviços")
     public void oUsuarioPuxaOsStatusDosServicos() {
         expectedInventory = storeApi.getInventory();
-
-        //map.get("approved")
     }
 
     @Entao("deve existir {int} de cada {word}")
     public void deveExistirQuantidadeDeCadaStatus(int quantity, String status) {
         assertThat(expectedInventory.get(status), is(quantity));
+    }
+
+    @Dado("que exista um pedido cadastrado no sistema")
+    public void queExistaUmPedidoCadastradoNoSistema() {
+        Pet pet = Pet.builder().build();
+        Order order = Order.builder().petId(pet.getId()).build();
+
+        expectedOrder = storeApi.createOrder(order);
+    }
+
+    @Quando("o usuário deletar um pedido")
+    public void oUsuarioDeletarUmPedido() {
+        storeApi.deleteOrder(expectedOrder.getId());
+    }
+
+    @Entao("o pedido não deve esta disponível no sistema")
+    public void oPedidoNaoDeveEstaDisponivelNoSistema() {
+        Response actualOrderResponse = storeApi.getOrder(expectedOrder.getId());
+
+        actualOrderResponse.then().statusCode(HttpStatus.SC_NOT_FOUND);
     }
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Order {
     @Builder.Default
-    private int id = 10;
+    private int id = 100;
     @Builder.Default
     private int petId = 77;
     @Builder.Default
